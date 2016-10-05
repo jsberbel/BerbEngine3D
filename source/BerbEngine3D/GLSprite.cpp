@@ -4,7 +4,7 @@
 #include <glm/gtx/transform.hpp>
 #include "PathLoader.h"
 
-namespace SerraPlo {
+namespace brb {
 
 	GLSprite::GLSprite() {
 		GLfloat vertices[6][4] = {

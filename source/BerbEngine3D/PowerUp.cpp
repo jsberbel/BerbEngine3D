@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
-namespace SerraPlo {
+namespace brb {
 
 	void GreenShell::Init(glm::vec3 *pos, glm::vec3 *front) { // Initialize shell with car position and car vector front
 		enabled = false; //redundant
@@ -59,18 +59,18 @@ namespace SerraPlo {
 		carPos = pos;
 		carFront = front;
 		curPathNode = 0;
-		for (int i = 0; i < karts.size(); ++i) if (carPos == karts[i]) { karts.erase(karts.begin() + i); break; }
+		for (size_t i = 0; i < karts.size(); ++i) if (carPos == karts[i]) { karts.erase(karts.begin() + i); break; }
 	}
 	void RedShell::Activate(void) { // Activate item, start lifetime counter and set main attributes
 		if (!enabled) {
 			lifeTimeCounter = float(clock());
 			transform.position = glm::vec3{ carPos->x, 4, carPos->z };
 			float minDist = 1000000.0f;
-			for (int i = 0; i < pathRef->size(); ++i) {
+			for (size_t i = 0; i < pathRef->size(); ++i) {
 				glm::vec2 iSegment = pathRef->at(i);
 				auto dist = glm::length(glm::distance(iSegment, glm::vec2(transform.position.x, transform.position.z)));
 				if (dist <= minDist) minDist = dist, curPathNode = i + 1;
-			} if (curPathNode >= pathRef->size()) curPathNode = pathRef->size() - 1;
+			} if (curPathNode >= int(pathRef->size())) curPathNode = pathRef->size() - 1;
 			front = *carFront;
 			enabled = true;
 		}
@@ -173,11 +173,11 @@ namespace SerraPlo {
 		if (!enabled) {
 			lifeTimeCounter = float(clock());
 			float minDist = 1000000.0f;
-			for (int i = 0; i < pathRef->size(); ++i) {
+			for (size_t i = 0; i < pathRef->size(); ++i) {
 				glm::vec2 iSegment = pathRef->at(i);
 				auto dist = glm::length(glm::distance(iSegment, glm::vec2(carTransform->position.x, carTransform->position.z)));
 				if (dist <= minDist) minDist = dist, curPathNode = i + 1;
-			} if (curPathNode >= pathRef->size()) curPathNode = pathRef->size() - 1;
+			} if (curPathNode >= int(pathRef->size())) curPathNode = pathRef->size() - 1;
 			front = *carFront;
 			*carEnabled = false;
 			enabled = true;

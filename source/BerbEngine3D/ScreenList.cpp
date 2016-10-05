@@ -2,7 +2,7 @@
 #include "IScreen.h"
 #include "ErrorManager.h"
 
-namespace SerraPlo {
+namespace brb {
 
 	ScreenList::ScreenList(IApp* game) :
 		m_gameApp(game),

@@ -2,7 +2,7 @@
 #include <SDL2\SDL_image.h>
 #pragma comment(lib, "SDL2_image.lib")
 
-namespace SerraPlo {
+namespace brb {
 
 	void Texture2D::Load(int x, int y, int w, int h, const std::string &path, SDL_Window *window, SDL_Renderer *renderer) {
 		SDL_Surface *loadSurface = IMG_Load(path.c_str());

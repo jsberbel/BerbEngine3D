@@ -4,7 +4,7 @@
 #include <glm/gtx/transform.hpp>
 #include <vector>
 
-namespace SerraPlo {
+namespace brb {
 
 	struct Vertex {
 		glm::vec3 position;

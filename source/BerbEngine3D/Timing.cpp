@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL2\SDL.h>
 
-namespace SerraPlo {
+namespace brb {
 
 #define NUM_SAMPLES 10
 

@@ -3,7 +3,7 @@
 #include "ErrorManager.h"
 #include "PathLoader.h"
 
-namespace SerraPlo {
+namespace brb {
 
 	ShaderProgram::ShaderProgram() {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Specifies the alignment requirements for the start of each pixel row in memory

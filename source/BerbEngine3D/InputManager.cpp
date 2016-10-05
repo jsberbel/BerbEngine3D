@@ -1,6 +1,6 @@
 #include "InputManager.h"
 
-namespace SerraPlo {
+namespace brb {
 
 	InputManager::InputManager() : mouseCoords(0.0f,0.0f) {}
 

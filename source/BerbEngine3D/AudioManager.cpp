@@ -1,7 +1,7 @@
 #include "AudioManager.h"
 #include "ErrorManager.h"
 
-namespace SerraPlo {
+namespace brb {
 
 #define MAX_CHANNELS 16
 

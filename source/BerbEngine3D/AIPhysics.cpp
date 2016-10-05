@@ -5,7 +5,7 @@
 
 #define PATH_DISTANCE_DETECTION 10.0f
 
-namespace SerraPlo {
+namespace brb {
 
 	static inline glm::vec2 DoKinematicSeek(glm::vec2 targetPosition, glm::vec2 agentPosition, float agentMaxSpeed) {
 		glm::vec2 desiredVelocity = glm::normalize(targetPosition - agentPosition); // Calculate desired velocity

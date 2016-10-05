@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)\build\$(PlatformName)$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\build\$(ProjectName)\lib\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)\temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
@@ -15,6 +15,9 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)\deps\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)\source\$(ProjectName)\*.h" "$(SolutionDir)\build\$(ProjectName)\include\" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

@@ -5,7 +5,7 @@
 #include <SDL2/SDL_ttf.h>
 #pragma comment(lib, "SDL2_ttf.lib")
 
-namespace SerraPlo {
+namespace brb {
 
 	GLText::GLText() {
 		GLfloat vertices[] = {

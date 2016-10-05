@@ -1,7 +1,7 @@
 #include "GLWindow.h"
 #include "ErrorManager.h"
 
-namespace SerraPlo {
+namespace brb {
 
 	GLWindow::GLWindow(int *sw, int *sh, const std::string &name) :
 		m_engineName(name),

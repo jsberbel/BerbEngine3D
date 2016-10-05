@@ -1,0 +1,30 @@
+﻿  SinglePlayerScreen.cpp
+  RendererList.cpp
+  MenuScreen.cpp
+  main.cpp
+  LoadingScreen.cpp
+  AppClient.cpp
+  Generating Code...
+  TestProject.vcxproj -> F:\Documents\GitHub\BerbEngine3D\\build\TestProject\Win32Debug\TestProject.exe
+  TestProject.vcxproj -> F:\Documents\GitHub\BerbEngine3D\\build\TestProject\Win32Debug\TestProject.pdb (Full PDB)
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\assimp.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\glew.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\glew32.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\glfw.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libFLAC-8.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libfreetype-6.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libjpeg-9.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libmodplug-1.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libogg-0.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libpng16-16.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libtiff-5.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libvorbis-0.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libvorbisfile-3.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\libwebp-4.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\SDL2.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\SDL2_image.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\SDL2_mixer.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\SDL2_ttf.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\smpeg2.dll
+  F:\Documents\GitHub\BerbEngine3D\\deps\dll\x86\zlib1.dll
+  20 File(s) copied

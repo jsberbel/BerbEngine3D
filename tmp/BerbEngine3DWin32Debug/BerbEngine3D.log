@@ -1,0 +1,10 @@
+﻿  ShaderProgram.cpp
+  PowerUp.cpp
+  IApp.cpp
+  GLSprite.cpp
+  CarPhysics.cpp
+  AIPhysics.cpp
+  Generating Code...
+  BerbEngine3D.vcxproj -> F:\Documents\GitHub\BerbEngine3D\\lib\x86\BerbEngine3D.lib
+  F:\Documents\GitHub\BerbEngine3D\\src\BerbEngine3D\PathLoader.h
+  1 File(s) copied

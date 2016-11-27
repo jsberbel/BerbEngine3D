@@ -1,6 +1,6 @@
 #include "Timing.h"
 #include <iostream>
-#include <SDL2\SDL.h>
+#include <SDL\SDL.h>
 
 namespace brb {
 

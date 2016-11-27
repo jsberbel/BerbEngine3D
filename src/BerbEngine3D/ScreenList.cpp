@@ -1,6 +1,6 @@
 #include "ScreenList.h"
 #include "IScreen.h"
-#include "ErrorManager.h"
+#include "Assert.h"
 
 namespace brb {
 
@@ -15,7 +15,7 @@ namespace brb {
 		prevScreenIndex = curScreenIndex;
 		curScreenIndex = index;
 		m_curScreen = m_screens[curScreenIndex];
-		if (m_curScreen == nullptr) SP_THROW_ERROR("New screen is null");
+		ASSERT(m_curScreen != nullptr);
 		m_curScreen->currentState = ScreenState::RUNNING;
 		m_curScreen->OnEntry();
 		return m_curScreen;

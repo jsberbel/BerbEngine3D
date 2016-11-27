@@ -1,7 +1,7 @@
 #include "ShaderProgram.h"
 #include "IOManager.h"
-#include "ErrorManager.h"
-#include "PathLoader.h"
+#include "Assert.h"
+#include "ResourcePath.h"
 
 namespace brb {
 
@@ -24,21 +24,19 @@ namespace brb {
 			std::vector<char> errorLog(maxLength);
 			glGetShaderInfoLog(id, maxLength, &maxLength, &errorLog[0]);
 			glDeleteShader(id);
-			SP_THROW_ERROR("Shader " + name + " failed to be compiled. Error Log: " + &errorLog[0]);
+			//SP_THROW_ERROR("Shader " + name + " failed to be compiled. Error Log: " + &errorLog[0]);
 		}
 	}
 
 	void ShaderProgram::LoadShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
 		std::string vertSource, fragSource;
 
-		LoadFileToBuffer(GetPathToAsset(vertexShaderFilePath), vertSource);
-		LoadFileToBuffer(GetPathToAsset(fragmentShaderFilePath), fragSource);
+		LoadFileToBuffer(GetPath(vertexShaderFilePath), vertSource);
+		LoadFileToBuffer(GetPath(fragmentShaderFilePath), fragSource);
 
 		m_programID = glCreateProgram();
-		m_vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-		if (m_vertexShaderID == 0) SP_THROW_ERROR("Vertex shader failed to be created.");
-		m_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-		if (m_fragmentShaderID == 0) SP_THROW_ERROR("Fragment shader failed to be created.");
+		ASSERT (!(m_vertexShaderID = glCreateShader(GL_VERTEX_SHADER)));
+		ASSERT (!(m_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER)));
 
 		compileShader(vertSource.c_str(), "Vertex Shader", m_vertexShaderID);
 		compileShader(fragSource.c_str(), "Fragment Shader", m_fragmentShaderID);
@@ -54,7 +52,7 @@ namespace brb {
 			std::vector<char> errorLog(maxLength);
 			glGetProgramInfoLog(m_programID, maxLength, &maxLength, &errorLog[0]);
 			glDeleteProgram(m_programID); glDeleteShader(m_vertexShaderID); glDeleteShader(m_fragmentShaderID);
-			SP_THROW_ERROR("Program failed to be compiled. Error Log: " + std::string(&errorLog[0]));
+			//SP_THROW_ERROR("Program failed to be compiled. Error Log: " + std::string(&errorLog[0]));
 		}
 		glDetachShader(m_programID, m_vertexShaderID);
 		glDetachShader(m_programID, m_fragmentShaderID);
@@ -64,13 +62,13 @@ namespace brb {
 
 	GLint ShaderProgram::getUniformLocation(const std::string & uniformName) const {
 		GLint location = glGetUniformLocation(m_programID, uniformName.c_str()); // Get the location of a uniform value from the GLSL program
-		if (location == GL_INVALID_INDEX) { SP_THROW_ERROR("Uniform " + uniformName + " not found on shader"); return 0; }
+		ASSERT_MSG(location != GL_INVALID_INDEX, "Uniform " + uniformName + " not found on shader");
 		return location;
 	}
 
 	GLint ShaderProgram::getAttribLocation(const std::string &attribName) const {
 		GLint attrib = glGetAttribLocation(m_programID, attribName.c_str()); // Get the location of a variable from the GLSL program
-		if (attrib == GL_INVALID_INDEX) { SP_THROW_ERROR("Attribute " + attribName + " not found on shader"); return 0; }
+		ASSERT_MSG(attrib != GL_INVALID_INDEX, "Attribute " + attribName + " not found on shader");
 		return attrib;
 	}
 

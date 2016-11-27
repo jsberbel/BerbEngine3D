@@ -2,9 +2,9 @@
 #include <GL\glew.h>
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glew32.lib")
-#include "ErrorManager.h"
+#include "Assert.h"
 
-#include <SOIL2/SOIL2.h>
+#include <SOIL/SOIL2.h>
 #ifdef _DEBUG
 #pragma comment(lib, "soil2-debug.lib")
 #else
@@ -22,7 +22,7 @@ namespace brb {
 		void Load(const char* filePath) {
 			// Load, create texture and generate mipmaps
 			id = SOIL_load_OGL_texture(filePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
-			if (id == 0) SP_THROW_ERROR("Texture " + std::string(filePath) + " failed to load");
+			ASSERT_MSG (!id, "Texture " + std::string(filePath) + " failed to load");
 			// Set texture filtering
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

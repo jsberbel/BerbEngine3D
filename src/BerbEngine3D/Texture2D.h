@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include <SDL2\SDL.h>
-#include "InputManager.h"
+#include <SDL\SDL.h>
+#include <glm\vec2.hpp>
 
 namespace brb {
 
@@ -25,7 +25,7 @@ namespace brb {
 		~Button2D() { SDL_DestroyTexture(texture), SDL_DestroyTexture(textureHover); }
 		void Reset() { hover = false; pressed = false; }
 		void Load(int x, int y, int w, int h, const std::string &pathDefault, const std::string &pathHover, SDL_Window *window, SDL_Renderer *renderer);
-		void Update(InputManager &inputManager);
+		void Update();
 		void Draw(SDL_Renderer *renderer) override;
 	};
 }

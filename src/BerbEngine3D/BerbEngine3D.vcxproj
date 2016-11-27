@@ -138,12 +138,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIPhysics.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="CarPhysics.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="ErrorManager.h" />
+    <ClInclude Include="Assert.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GLCamera.h" />
     <ClInclude Include="GLLight.h" />
@@ -158,8 +155,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IOManager.h" />
     <ClInclude Include="IScreen.h" />
-    <ClInclude Include="PathLoader.h" />
-    <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="ResourcePath.h" />
     <ClInclude Include="Renderer2D.h" />
     <ClInclude Include="ScreenList.h" />
     <ClInclude Include="ShaderProgram.h" />
@@ -167,20 +163,15 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Timing.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIPhysics.cpp" />
     <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="CarPhysics.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="GLPrimitives.cpp" />
     <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="GLText.cpp" />
     <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="IApp.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="ResourcePath.cpp" />
     <ClCompile Include="ScreenList.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture2D.cpp" />

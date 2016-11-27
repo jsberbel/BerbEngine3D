@@ -2,7 +2,7 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
-#include "PathLoader.h"
+#include "ResourcePath.h"
 
 namespace brb {
 
@@ -30,7 +30,7 @@ namespace brb {
 	}
 
 	void GLSprite::SetImage(const std::string& path) {
-		texture.Load(GetPathToAsset(path).c_str());
+		texture.Load(GetPath(path).c_str());
 	}
 
 	void GLSprite::Draw(ShaderProgram &program, GLCamera &camera) const {

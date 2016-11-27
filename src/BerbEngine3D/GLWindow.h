@@ -1,31 +1,34 @@
 #pragma once
 #include <string>
-#include <SDL2\SDL.h>
+#include <SDL\SDL.h>
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
 
-#define WINDOW GLWindow::Instance()
-
 namespace brb {
-	enum WindowFlags { INVISIBLE = 0x1, FULLSCREEN = 0x2, BORDERLESS = 0x4, RESIZABLE = 0x8 };
+
+	enum WindowFlags : Uint32 { 
+		W_INVISIBLE = SDL_WINDOW_HIDDEN,
+		W_RESIZABLE = SDL_WINDOW_RESIZABLE,
+		W_BORDERLESS = SDL_WINDOW_BORDERLESS,
+		W_FULLSCREEN = SDL_WINDOW_FULLSCREEN_DESKTOP
+	};
 
 	class GLWindow {
-		std::string m_engineName = "";
-		SDL_GLContext m_glContext = nullptr;
-		explicit GLWindow() = default;
 	public:
-		static GLWindow &Instance() {
-			static GLWindow instance;
-			return instance;
-		}
-		SDL_Window* SDLWindow = nullptr;
-		int screenWidth;
-		int screenHeight;
+		GLWindow(const std::string &, Uint32, Uint32, Uint32 = 0);
 		~GLWindow();
-		void create(const unsigned &curFlags = 0);
-		void create(const std::string &name, int sw, int sh, const unsigned &curFlags = 0);
-		void changeSize(int sw, int sh) const { SDL_SetWindowSize(SDLWindow, sw, sh); };
-		void changeName(const std::string &name) const { SDL_SetWindowTitle(SDLWindow, name.c_str()); };
-		void swapBuffer() const { SDL_GL_SwapWindow(SDLWindow); };
+		void SwapBuffer() const;
+		void ChangeSize(int, int) const;
+		void ChangeName(const std::string &) const;
+		inline Uint32 GetWidth() { return m_screenWidth; };
+		inline Uint32 GetHeight() { return m_screenHeight; };
+		inline SDL_Window* operator()() { return m_SDLWindow; };
+	private:
+		std::string m_name;
+		Uint32 m_screenWidth;
+		Uint32 m_screenHeight;
+		SDL_Window* m_SDLWindow;
+		SDL_GLContext m_GLContext;
 	};
+
 }

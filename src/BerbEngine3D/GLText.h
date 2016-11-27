@@ -1,7 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include <SDL2\SDL_ttf.h>
+#include <SDL\SDL_ttf.h>
 #pragma comment(lib, "SDL2_ttf.lib")
 #include "ShaderProgram.h"
 #include "GLCamera.h"

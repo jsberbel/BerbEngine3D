@@ -1,5 +1,6 @@
 #include "Texture2D.h"
-#include <SDL2\SDL_image.h>
+#include "InputManager.h"
+#include <SDL\SDL_image.h>
 #pragma comment(lib, "SDL2_image.lib")
 
 namespace brb {
@@ -35,12 +36,12 @@ namespace brb {
 		SDL_FreeSurface(textureSurface);
 	}
 
-	void Button2D::Update(InputManager &inputManager) {
+	void Button2D::Update() {
 		hover = false;
-		if (inputManager.mouseCoords.x > position.x && inputManager.mouseCoords.x < position.x + width &&
-			inputManager.mouseCoords.y > position.y && inputManager.mouseCoords.y < position.y + height) {
+		if (INPUT.GetMouseCoords().x > position.x && INPUT.GetMouseCoords().x < position.x + width &&
+			INPUT.GetMouseCoords().y > position.y && INPUT.GetMouseCoords().y < position.y + height) {
 			hover = true;
-			if (inputManager.isKeyPressed(SDL_BUTTON_LEFT)) pressed = true;
+			if (INPUT.IsKeyDown<MOUSE_BUTTON_LEFT>()) pressed = true;
 		}
 	}
 

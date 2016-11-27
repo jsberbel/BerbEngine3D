@@ -2,7 +2,7 @@
 #include <map>
 #include "GLMesh.h"
 #include "GLMaterial.h"
-#include "PathLoader.h"
+#include "ResourcePath.h"
 #include <iostream>
 
 #define ASSET AssetManager::Instance()
@@ -28,7 +28,7 @@ namespace brb {
 		}
 		bool Empty() const { return meshList.empty() && materialList.empty(); }
 		void Load(const std::string &keyMesh, const std::string &keyMaterial, const std::string &filePath) {
-			const aiScene *pScene = aiImportFile(GetPathToAsset(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
+			const aiScene *pScene = aiImportFile(GetPath(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
 			meshList[keyMesh] = {};
 			meshList[keyMesh].numMeshes = pScene->mNumMeshes;
 			meshList[keyMesh].meshData = new GLMesh[pScene->mNumMeshes];
@@ -43,20 +43,20 @@ namespace brb {
 				if (material->GetTexture(aiTextureType_DIFFUSE, texIndex, &path) == AI_SUCCESS) { // Load diffuse texture from material
 					std::string aiDiffPath = path.data; // Get texture path
 					auto pos = aiDiffPath.rfind("models");
-					auto cstrDiffPath = GetPathToAsset(aiDiffPath.substr(pos, aiDiffPath.size() - pos));
+					auto cstrDiffPath = GetPath(aiDiffPath.substr(pos, aiDiffPath.size() - pos));
 					materialList[keyMaterial].materialData[i].diffuse.Load(cstrDiffPath.c_str()); // Create material for mesh
 				}
 				if (material->GetTexture(aiTextureType_NORMALS, texIndex, &path) == AI_SUCCESS) { // Load diffuse texture from material
 					std::string aiNormalPath = path.data; // Get texture path
 					auto pos = aiNormalPath.rfind("models");
-					auto cstrNormalPath = GetPathToAsset(aiNormalPath.substr(pos, aiNormalPath.size() - pos));
+					auto cstrNormalPath = GetPath(aiNormalPath.substr(pos, aiNormalPath.size() - pos));
 					materialList[keyMaterial].materialData[i].normal.Load(cstrNormalPath.c_str()); // Create material for mesh
 				}
 			}
 			aiReleaseImport(pScene); // Delete scene imported
 		}
 		void LoadMesh(const std::string &key, const std::string &filePath) {
-			const aiScene *pScene = aiImportFile(GetPathToAsset(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
+			const aiScene *pScene = aiImportFile(GetPath(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
 			meshList[key] = {};
 			meshList[key].numMeshes = pScene->mNumMeshes;
 			meshList[key].meshData = new GLMesh[pScene->mNumMeshes];
@@ -68,17 +68,17 @@ namespace brb {
 			materialList[key] = {};
 			materialList[key].numMaterials = 1;
 			materialList[key].materialData = new GLMaterial[1];
-			materialList[key].materialData[0].diffuse.Load(GetPathToAsset(diffusePath).c_str());
-			if (normalPath != "") materialList[key].materialData[0].normal.Load(GetPathToAsset(normalPath).c_str());
+			materialList[key].materialData[0].diffuse.Load(GetPath(diffusePath).c_str());
+			if (normalPath != "") materialList[key].materialData[0].normal.Load(GetPath(normalPath).c_str());
 		}
 		GlobalMesh &FindMesh(const std::string &key) {
 			auto it = meshList.find(key);
-			if (it == meshList.end()) SP_THROW_ERROR("Mesh " + key + " not found on global mesh list.");
+			ASSERT_MSG (it == meshList.end(), "Mesh " + key + " not found on global mesh list.");
 			return it->second;
 		}
 		GlobalMaterial &FindMaterial(const std::string &key) {
 			auto it = materialList.find(key);
-			if (it == materialList.end()) SP_THROW_ERROR("Mesh " + key + " not found on global mesh list.");
+			ASSERT_MSG(it == materialList.end(), "Mesh " + key + " not found on global mesh list.");
 			return it->second;
 		}
 	};

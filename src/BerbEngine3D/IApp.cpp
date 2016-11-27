@@ -1,7 +1,7 @@
 #include <ctime>
 #include "IApp.h"
 #include "Timing.h"
-#include "PathLoader.h"
+#include "ResourcePath.h"
 #include "GLWindow.h"
 #include "ScreenList.h"
 #include "InputManager.h"
@@ -13,8 +13,16 @@
 
 namespace brb {
 
+	static int AskUserForWindow(void) {
+		const SDL_MessageBoxButtonData buttons[] = { { 0, 0, "NO" },{ SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "YES" } };
+		const SDL_MessageBoxColorScheme colorScheme = { { { 255,   0,   0 },{ 0, 255,   0 },{ 255, 255,   0 },{ 0,   0, 255 },{ 255,   0, 255 } } };
+		const SDL_MessageBoxData messageBoxData = { SDL_MESSAGEBOX_INFORMATION, nullptr, "Select an option", "Do you want to play on full screen mode?", SDL_arraysize(buttons), buttons, &colorScheme };
+		int buttonID;
+		SDL_ShowMessageBox(&messageBoxData, &buttonID); // Whether to play on fullscreen mode or default normal mode
+		return buttonID;
+	}
+
 IApp::IApp() : currentScreen(SCENE.GetCurScreen()) {
-	InitSDL(); // Initialize everything related to SDL for the window
 	unsigned int flags = 0;
 	//if (AskUserForWindow() == 0) flags = WindowFlags::RESIZABLE; // Create default window resizable
 	//else flags = WindowFlags::FULLSCREEN; // Create default window fullscreen

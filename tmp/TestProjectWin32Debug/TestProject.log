@@ -1,9 +1,0 @@
-﻿  MenuScreen.cpp
-f:\documents\github\berbengine3d\src\testproject\menuscreen.cpp(39): warning C4390: ';': empty controlled statement found; is this the intent?
-  LoadingScreen.cpp
-f:\documents\github\berbengine3d\src\testproject\loadingscreen.cpp(36): warning C4390: ';': empty controlled statement found; is this the intent?
-f:\documents\github\berbengine3d\src\testproject\loadingscreen.cpp(45): warning C4390: ';': empty controlled statement found; is this the intent?
-  Generating Code...
-  TestProject.vcxproj -> F:\Documents\GitHub\BerbEngine3D\\bin\Win32Debug\TestProject.exe
-  TestProject.vcxproj -> F:\Documents\GitHub\BerbEngine3D\\bin\Win32Debug\TestProject.pdb (Full PDB)
-  0 File(s) copied

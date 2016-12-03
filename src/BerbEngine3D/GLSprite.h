@@ -3,13 +3,12 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "GLCamera.h"
-#include "GLTexture.h"
 
 namespace brb {
 
 	class GLSprite {
 	public:
-		GLTexture texture;
+		GLuint *texture;
 		GLuint vao, vbo;
 		glm::vec3 position{ 0,0,0 };
 		glm::vec3 rotation{ 0,0,0 };

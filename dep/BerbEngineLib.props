@@ -16,7 +16,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\dep\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy /d /y "$(SolutionDir)\src\$(ProjectName)\*.h" "$(SolutionDir)\lib\inc\"</Command>
+      <Command>for %%x in (h hh) do xcopy /d /y "$(SolutionDir)\src\$(ProjectName)\*.%%x" "$(SolutionDir)\lib\inc\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

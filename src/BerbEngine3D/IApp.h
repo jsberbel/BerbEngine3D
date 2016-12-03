@@ -1,5 +1,5 @@
 #pragma once
-#include "IScreen.h"
+#include "Scene.h"
 #include <memory>
 
 namespace brb {
@@ -9,7 +9,7 @@ namespace brb {
 	protected:
 		bool m_isRunning {true};// Whether game is running or not
 	public:
-		IScreen *&currentScreen; // Reference pointer to the screen running at the moment
+		Scene *&currentScreen; // Reference pointer to the screen running at the moment
 
 		explicit IApp();
 		virtual ~IApp() = default;

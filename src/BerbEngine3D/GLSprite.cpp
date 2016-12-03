@@ -30,7 +30,7 @@ namespace brb {
 	}
 
 	void GLSprite::SetImage(const std::string& path) {
-		texture.Load(GetPath(path).c_str());
+		//texture.Load(GetPath(path).c_str());
 	}
 
 	void GLSprite::Draw(ShaderProgram &program, GLCamera &camera) const {
@@ -39,7 +39,7 @@ namespace brb {
 
 		glDisable(GL_CULL_FACE);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture.id);
+		glBindTexture(GL_TEXTURE_2D, *texture);
 
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, 6); // Draw plane with 36 vertices

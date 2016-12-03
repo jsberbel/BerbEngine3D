@@ -6,6 +6,8 @@
 
 namespace brb {
 
+#define WINDOW GLWindow::Instance()
+
 	enum WindowFlags : Uint32 { 
 		W_INVISIBLE = SDL_WINDOW_HIDDEN,
 		W_RESIZABLE = SDL_WINDOW_RESIZABLE,
@@ -14,9 +16,14 @@ namespace brb {
 	};
 
 	class GLWindow {
+		GLWindow() = default;
 	public:
-		GLWindow(const std::string &, Uint32, Uint32, Uint32 = 0);
+		static GLWindow &Instance() {
+			static GLWindow instance;
+			return instance;
+		}
 		~GLWindow();
+		void Instantiate(const std::string &, Uint32, Uint32, Uint32 = 0);
 		void SwapBuffer() const;
 		void ChangeSize(int, int) const;
 		void ChangeName(const std::string &) const;
@@ -27,7 +34,7 @@ namespace brb {
 		std::string m_name;
 		Uint32 m_screenWidth;
 		Uint32 m_screenHeight;
-		SDL_Window* m_SDLWindow;
+		SDL_Window* m_SDLWindow{ nullptr };
 		SDL_GLContext m_GLContext;
 	};
 

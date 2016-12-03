@@ -36,9 +36,6 @@
     <ClInclude Include="GLMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GLPrimitives.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,9 +45,6 @@
     <ClInclude Include="GLText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GLWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -58,12 +52,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IOManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
@@ -84,13 +72,22 @@
     <ClInclude Include="Renderer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourcePath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assert.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,9 +110,6 @@
     <ClCompile Include="IApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourcePath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

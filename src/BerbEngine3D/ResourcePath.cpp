@@ -1,4 +1,4 @@
-#include "Assert.h"
+#include "Assert.hh"
 
 namespace brb {
 	extern std::string GetPath(const std::string &subDir) {

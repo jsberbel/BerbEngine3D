@@ -1,3 +1,0 @@
-#pragma once
-
-enum SreenType { SCREEN_MENU, SCREEN_LOADING, SCREEN_SINGLE_PLAYER };

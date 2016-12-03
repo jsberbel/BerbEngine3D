@@ -1,5 +1,5 @@
 #include "GLWindow.h"
-#include "Assert.h"
+#include "Assert.hh"
 #include <GL\glew.h>
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glew32.lib")
@@ -34,11 +34,10 @@ namespace brb {
 							glStencilFunc(GL_NOTEQUAL, 1, 0xFF); \
 							glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); \
 
-	GLWindow::GLWindow(const std::string &name, Uint32 screenWidth, Uint32 screenHeight, Uint32 curFlags) :
-		m_name(name),
-		m_screenWidth(screenWidth),
-		m_screenHeight(screenHeight) 
-	{
+	void GLWindow::Instantiate(const std::string &name, Uint32 screenWidth, Uint32 screenHeight, Uint32 curFlags) {
+		m_name = name;
+		m_screenWidth = screenWidth;
+		m_screenHeight = screenHeight;
 		SDL_Init(SDL_INIT_EVERYTHING); // Initialize everything in SDL (VIDEO, AUDIO, EVENTS,...)
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Tell we want a double buffered windows to avoid flickering
 		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);

@@ -140,24 +140,23 @@
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="Assert.h" />
+    <ClInclude Include="Assert.hh" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GLCamera.h" />
     <ClInclude Include="GLLight.h" />
     <ClInclude Include="GLMaterial.h" />
-    <ClInclude Include="GLMesh.h" />
+    <ClInclude Include="GLModel.h" />
     <ClInclude Include="GLPrimitives.h" />
     <ClInclude Include="GLSprite.h" />
     <ClInclude Include="GLText.h" />
-    <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GLWindow.h" />
     <ClInclude Include="IApp.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IOManager.h" />
-    <ClInclude Include="IScreen.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ResourcePath.h" />
     <ClInclude Include="Renderer2D.h" />
-    <ClInclude Include="ScreenList.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Text2D.h" />
     <ClInclude Include="Texture2D.h" />
@@ -166,13 +165,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="GLModel.cpp" />
     <ClCompile Include="GLPrimitives.cpp" />
     <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="GLText.cpp" />
     <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="IApp.cpp" />
     <ClCompile Include="ResourcePath.cpp" />
-    <ClCompile Include="ScreenList.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Timing.cpp" />

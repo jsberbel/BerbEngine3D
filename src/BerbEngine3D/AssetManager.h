@@ -1,9 +1,20 @@
 #pragma once
-#include <map>
-#include "GLMesh.h"
-#include "GLMaterial.h"
+#include <unordered_map>
+#include "GLModel.h"
 #include "ResourcePath.h"
-#include <iostream>
+#include "Assert.hh"
+
+#include <assimp/cimport.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#pragma comment(lib, "assimp.lib") 
+
+#include <SOIL/SOIL2.h>
+#ifdef _DEBUG
+#pragma comment(lib, "soil2-debug.lib")
+#else
+#pragma comment(lib, "soil2.lib")
+#endif
 
 #define ASSET AssetManager::Instance()
 
@@ -12,98 +23,71 @@ namespace brb {
 	class AssetManager {
 		AssetManager() = default;
 	public:
-		std::map<std::string, GlobalMesh> meshList;
-		std::map<std::string, GlobalMaterial> materialList; ///TODO: only textures
 		static AssetManager &Instance() {
 			static AssetManager instance;
 			return instance;
 		}
-		~AssetManager() {
-			for (auto& entity : meshList)
-				glDeleteVertexArrays(1, &entity.second.meshData->vao),
-				glDeleteBuffers(1, &entity.second.meshData->vbo),
-				glDeleteBuffers(1, &entity.second.meshData->ebo),
-				delete[] entity.second.meshData;
-			for (auto& entity : materialList) delete[] entity.second.materialData;
+		~AssetManager() = default;
+		operator bool() const {
+			return m_modelData.empty() && m_textureData.empty();
 		}
-		bool Empty() const { return meshList.empty() && materialList.empty(); }
-		void Load(const std::string &keyMesh, const std::string &keyMaterial, const std::string &filePath) {
+		template<Uint32 key> void LoadModel(std::string &&filePath) {
 			const aiScene *pScene = aiImportFile(GetPath(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
-			meshList[keyMesh] = {};
-			meshList[keyMesh].numMeshes = pScene->mNumMeshes;
-			meshList[keyMesh].meshData = new GLMesh[pScene->mNumMeshes];
-			materialList[keyMaterial] = {};
-			materialList[keyMaterial].numMaterials = pScene->mNumMeshes; /// TODO: check pScene->mNumMaterials
-			materialList[keyMaterial].materialData = new GLMaterial[pScene->mNumMeshes];
+			auto &newModel = m_modelData[key];
+			newModel.resize(pScene->mNumMeshes);
 			for (unsigned i = 0; i < pScene->mNumMeshes; ++i) {
-				meshList[keyMesh].meshData[i].Load(pScene->mMeshes[i]); // Add each mesh to model
+				newModel[i].Load(pScene->mMeshes[i]); // Add each mesh to model
 				const aiMaterial* material = pScene->mMaterials[pScene->mMeshes[i]->mMaterialIndex]; // Load material from mesh
 				int texIndex{ 0 }; aiString path; // To fill variables
-				///TODO: check other texture types http://assimp.sourceforge.net/lib_html/material_8h.html#a7dd415ff703a2cc53d1c22ddbbd7dde0
+												  //TODO: check other texture types http://assimp.sourceforge.net/lib_html/material_8h.html#a7dd415ff703a2cc53d1c22ddbbd7dde0
 				if (material->GetTexture(aiTextureType_DIFFUSE, texIndex, &path) == AI_SUCCESS) { // Load diffuse texture from material
-					std::string aiDiffPath = path.data; // Get texture path
-					auto pos = aiDiffPath.rfind("models");
-					auto cstrDiffPath = GetPath(aiDiffPath.substr(pos, aiDiffPath.size() - pos));
-					materialList[keyMaterial].materialData[i].diffuse.Load(cstrDiffPath.c_str()); // Create material for mesh
+					std::string aiDiffPath = path.data; // TODO: check if necessary
+														//auto pos = aiDiffPath.rfind("models");
+														//auto cstrDiffPath = GetPath(aiDiffPath.substr(pos, aiDiffPath.size() - pos));
+														//m_textureData.emplace(aiDiffPath, GetPath("models/"+ aiDiffPath).c_str());
 				}
 				if (material->GetTexture(aiTextureType_NORMALS, texIndex, &path) == AI_SUCCESS) { // Load diffuse texture from material
 					std::string aiNormalPath = path.data; // Get texture path
-					auto pos = aiNormalPath.rfind("models");
-					auto cstrNormalPath = GetPath(aiNormalPath.substr(pos, aiNormalPath.size() - pos));
-					materialList[keyMaterial].materialData[i].normal.Load(cstrNormalPath.c_str()); // Create material for mesh
+														  //m_textureData.emplace(aiNormalPath, GetPath("models/" + aiNormalPath).c_str());
 				}
 			}
 			aiReleaseImport(pScene); // Delete scene imported
 		}
-		void LoadMesh(const std::string &key, const std::string &filePath) {
-			const aiScene *pScene = aiImportFile(GetPath(filePath).c_str(), aiProcessPreset_TargetRealtime_MaxQuality); // Load scene
-			meshList[key] = {};
-			meshList[key].numMeshes = pScene->mNumMeshes;
-			meshList[key].meshData = new GLMesh[pScene->mNumMeshes];
-			for (unsigned i = 0; i < pScene->mNumMeshes; ++i)
-				meshList[key].meshData[i].Load(pScene->mMeshes[i]); // Add each mesh to model
-			aiReleaseImport(pScene); // Delete scene imported
+		void LoadTexture(const std::string &key, std::string &&filePath) {
+			// Load, create texture and generate mipmaps
+			auto id = SOIL_load_OGL_texture(GetPath(filePath).c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+			ASSERT_MSG(SDL_bool(id), "Texture " + std::string(filePath) + " failed to load");
+			// Set texture filtering
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			// Set texture parameters
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so not accidentily mess up our texture
+			m_textureData.emplace(key, id);
 		}
-		void LoadMaterial(const std::string &key, const std::string &diffusePath, const std::string &normalPath = "") {
-			materialList[key] = {};
-			materialList[key].numMaterials = 1;
-			materialList[key].materialData = new GLMaterial[1];
-			materialList[key].materialData[0].diffuse.Load(GetPath(diffusePath).c_str());
-			if (normalPath != "") materialList[key].materialData[0].normal.Load(GetPath(normalPath).c_str());
+		/*GLMaterial &CreateMaterial(const std::string &key, GLuint *diffuse = nullptr, GLuint *normal = nullptr, 
+								   GLfloat shininess = 1.f, glm::vec3 specular = {}, glm::vec3 emissive = {}) {
+			return m_materialData.emplace(key, GLMaterial(diffuse, normal, shininess, specular, emissive)).first->second;
+		}*/
+		template<Sint32 key> GLModel *Get() {
+			auto it = m_modelData.find(key);
+			ASSERT(it != m_modelData.end());
+			return &it->second;
 		}
-		GlobalMesh &FindMesh(const std::string &key) {
-			auto it = meshList.find(key);
-			ASSERT_MSG (it == meshList.end(), "Mesh " + key + " not found on global mesh list.");
+		/*GLMaterial &GetMaterial(const std::string &key) {
+			auto it = m_materialData.find(key);
+			ASSERT_MSG(it != m_materialData.end(), "Mesh " + key + " not found on global mesh list.");
+			return it->second;
+		}*/
+		GLuint &GetTexture(const std::string &key) {
+			auto it = m_textureData.find(key);
+			ASSERT_MSG(it != m_textureData.end(), "Mesh " + key + " not found on global mesh list.");
 			return it->second;
 		}
-		GlobalMaterial &FindMaterial(const std::string &key) {
-			auto it = materialList.find(key);
-			ASSERT_MSG(it == materialList.end(), "Mesh " + key + " not found on global mesh list.");
-			return it->second;
-		}
+	private:
+		std::unordered_map<Uint32, GLModel> m_modelData;
+		std::unordered_map<std::string, GLuint> m_textureData;
 	};
 
 }
-
-
-/*JsonBox::Value fileData;
-fileData.loadFromFile(filePath);
-JsonBox::Object wrapper{ fileData.getObject() };
-for (auto entity : wrapper) {
-std::string key{ entity.first };
-JsonBox::Object properties{ entity.second.getObject() };
-new (&gameObjectList[key]) GlobalGameObject(entity.first,
-GetPathToAsset(properties["model"].getString()).c_str(),
-!properties["diffuse"].isNull() ? GetPathToAsset(properties["diffuse"].getString()).c_str() : nullptr,
-!properties["normal"].isNull() ? GetPathToAsset(properties["normal"].getString()).c_str() : nullptr,
-properties["specular"].getArray(),
-!properties["emissive"].isNull() ? properties["emissive"].getArray() : JsonBox::Array{0, 0, 0},
-properties["shininess"].getFloat());
-/// Load transform attributes
-JsonBox::Array tempArray = properties["position"].getArray();
-gameObjectList[key].transform.position = { tempArray[0].getFloat(), tempArray[1].getFloat(), tempArray[2].getFloat() };
-tempArray = properties["rotation"].getArray();
-gameObjectList[key].transform.rotation = { tempArray[0].getFloat(), tempArray[1].getFloat(), tempArray[2].getFloat() };
-tempArray = properties["scale"].getArray();
-gameObjectList[key].transform.scale = { tempArray[0].getFloat(), tempArray[1].getFloat(), tempArray[2].getFloat() };
-}*/

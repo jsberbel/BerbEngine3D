@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 #include "IOManager.h"
-#include "Assert.h"
+#include "Assert.hh"
 #include "ResourcePath.h"
 
 namespace brb {
@@ -35,8 +35,8 @@ namespace brb {
 		LoadFileToBuffer(GetPath(fragmentShaderFilePath), fragSource);
 
 		m_programID = glCreateProgram();
-		ASSERT (!(m_vertexShaderID = glCreateShader(GL_VERTEX_SHADER)));
-		ASSERT (!(m_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER)));
+		ASSERT (m_vertexShaderID = glCreateShader(GL_VERTEX_SHADER));
+		ASSERT (m_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER));
 
 		compileShader(vertSource.c_str(), "Vertex Shader", m_vertexShaderID);
 		compileShader(fragSource.c_str(), "Fragment Shader", m_fragmentShaderID);

@@ -1,0 +1,22 @@
+mesh_kart_default models/kart/kart_default.obj
+mesh_wheel models/kart/wheel.obj
+mesh_debug_collisions models/circuit_col/colisions.dae
+mesh_skybox models/skybox/skybox.obj
+mesh_item_box models/powerups/item_box.obj
+mesh_shell models/powerups/green_shell.obj
+mesh_banana models/powerups/banana.obj
+mesh_bullet_bill models/powerups/bullet_bill.obj
+material_kart_default models/kart/textures/body_dummy_alb.png
+material_kart_00 models/kart/textures/bodyk_std_hyh00_alb.png
+material_kart_01 models/kart/textures/bodyk_std_kop_alb.png
+material_kart_02 models/kart/textures/bodyk_std_knc_alb.png
+material_red images/plch/red.jpg
+material_green images/plch/green.jpg
+material_blue images/plch/blue.jpg
+material_skybox models/skybox/skybox_diffuse.jpg
+material_item_box models/powerups/item_box.png
+material_green_shell models/powerups/green_shell.png
+material_red_shell models/powerups/red_shell.png
+material_banana models/powerups/banana.png
+material_bullet_bill models/powerups/bullet_bill.jpg
+mesh_circuit material_circuit models/circuit/circuit.dae

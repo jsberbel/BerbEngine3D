@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)\bin\$(PlatformName)$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)$(PlatformName)\</OutDir>
     <IntDir>$(SolutionDir)\tmp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
@@ -13,7 +13,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\dep\lib\$(PlatformTarget);$(SolutionDir)\lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\dep\lib\$(PlatformTarget);$(SolutionDir)\lib\$(Configuration)$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 	  <SubSystem Condition="'$(Configuration)'=='Debug'">Console</SubSystem>
       <SubSystem Condition="'$(Configuration)'=='Release'">Windows</SubSystem>
 	</Link>

@@ -1,9 +1,7 @@
 #include "GLModel.h"
 #include <GL/glew.h>
 #include <vector>
-#include <assimp/cimport.h>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <assimp/mesh.h>
 #pragma comment(lib, "assimp.lib") 
 
 namespace brb {
@@ -37,7 +35,7 @@ namespace brb {
 		indices.reserve(nf);
 		for (int i = 0; i < nf; ++i)
 			indices.push_back(mesh->mFaces[i].mIndices[0]), indices.push_back(mesh->mFaces[i].mIndices[1]), indices.push_back(mesh->mFaces[i].mIndices[2]);
-		numElements = indices.size();
+		numElements = static_cast<GLsizei>(indices.size());
 		///Create VAO
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
